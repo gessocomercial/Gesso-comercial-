@@ -1,0 +1,595 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesso Alves Comercial - Materiais e Ferramentas</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1e40af', // Blue 800
+                        secondary: '#475569', // Slate 600
+                        light: '#f8fafc', // Slate 50
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles to hide scrollbar but keep functionality if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Modal Transitions */
+        .modal-enter { opacity: 0; transform: scale(0.95); }
+        .modal-enter-active { opacity: 1; transform: scale(1); transition: all 0.3s ease-out; }
+        .modal-exit { opacity: 1; transform: scale(1); }
+        .modal-exit-active { opacity: 0; transform: scale(0.95); transition: all 0.2s ease-in; }
+    </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-primary text-3xl"></i>
+                        <span class="font-bold text-2xl tracking-tight text-slate-900">Gesso Alves <span class="text-primary font-light">Comercial</span></span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="text-slate-600 hover:text-primary font-medium transition-colors">Início</a>
+                    <a href="#produtos" class="text-slate-600 hover:text-primary font-medium transition-colors">Produtos</a>
+                    <a href="#sobre" class="text-slate-600 hover:text-primary font-medium transition-colors">Sobre Nós</a>
+                    <button onclick="openQuoteModal()" class="relative bg-primary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition-colors shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-calculator"></i> Meu Orçamento
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full hidden">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3">
+                <a href="#inicio" class="block px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary rounded-md font-medium">Início</a>
+                <a href="#produtos" class="block px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary rounded-md font-medium">Produtos</a>
+                <a href="#sobre" class="block px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary rounded-md font-medium">Sobre Nós</a>
+                <button onclick="openQuoteModal(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left flex items-center justify-between px-3 py-2 text-primary font-bold hover:bg-slate-50 rounded-md">
+                    <span><i class="fa-solid fa-calculator mr-2"></i> Meu Orçamento</span>
+                    <span id="mobile-cart-count" class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative bg-slate-900 overflow-hidden">
+        <div class="absolute inset-0 opacity-40">
+            <!-- Decorative background pattern instead of relying on external images that might fail -->
+            <div class="absolute inset-0" style="background-image: radial-gradient(#475569 1px, transparent 1px); background-size: 20px 20px;"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24 md:py-32 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+                    A base sólida para a sua <span class="text-blue-400">obra perfeita</span>.
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto md:mx-0">
+                    Distribuidora completa de gesso, ferramentas, sistemas de drywall e acessórios para gesseiros, construtoras e arquitetos.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#produtos" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-3.5 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-center">
+                        Ver Catálogo de Produtos
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center md:justify-end">
+                <div class="grid grid-cols-2 gap-4 w-full max-w-md transform rotate-3">
+                    <img src="https://placehold.co/400x500/1e293b/94a3b8?text=Drywall" alt="Drywall" class="rounded-lg shadow-2xl object-cover h-48 w-full mt-8">
+                    <img src="https://placehold.co/400x400/334155/cbd5e1?text=Sancas" alt="Sancas de Gesso" class="rounded-lg shadow-2xl object-cover h-40 w-full">
+                    <img src="https://placehold.co/400x400/475569/e2e8f0?text=Ferramentas" alt="Ferramentas" class="rounded-lg shadow-2xl object-cover h-40 w-full col-span-2">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="produtos" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Nossos Produtos</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Trabalhamos com as melhores marcas do mercado para garantir acabamento impecável e durabilidade em seus projetos.</p>
+            </div>
+
+            <!-- Categories Filter (Visual only for this demo) -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="px-5 py-2 bg-primary text-white rounded-full font-medium shadow-sm">Todos</button>
+                <button class="px-5 py-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 rounded-full font-medium transition-colors">Drywall</button>
+                <button class="px-5 py-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 rounded-full font-medium transition-colors">Gesso em Pó</button>
+                <button class="px-5 py-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 rounded-full font-medium transition-colors">Acessórios</button>
+                <button class="px-5 py-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 rounded-full font-medium transition-colors">Ferramentas</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://placehold.co/600x400/f8fafc/475569?text=Gesso+Revestimento" alt="Gesso em Pó" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">Mais Vendido</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-slate-500 mb-2 uppercase font-semibold tracking-wider">Gesso em Pó</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Saco de Gesso Revestimento 40kg</h3>
+                        <p class="text-slate-600 mb-4 line-clamp-2">Ideal para acabamentos finos em tetos e paredes. Secagem rápida e excelente rendimento para sua obra.</p>
+                        <div class="mb-5 flex items-end gap-2">
+                            <span class="text-2xl font-black text-primary">R$ 28,90</span>
+                            <span class="text-sm text-slate-500 font-medium mb-1">/saco</span>
+                        </div>
+                        <button onclick="addToCart('Saco de Gesso Revestimento 40kg', 28.90)" class="w-full bg-slate-900 hover:bg-primary text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://placehold.co/600x400/e2e8f0/334155?text=Chapa+Drywall+ST" alt="Chapa de Drywall" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-slate-500 mb-2 uppercase font-semibold tracking-wider">Drywall</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Placa de Drywall ST 12,5mm</h3>
+                        <p class="text-slate-600 mb-4 line-clamp-2">Chapa Standard (branca) ideal para uso em forros e paredes em áreas secas. Alta resistência e isolamento.</p>
+                        <div class="mb-5 flex items-end gap-2">
+                            <span class="text-2xl font-black text-primary">R$ 34,50</span>
+                            <span class="text-sm text-slate-500 font-medium mb-1">/chapa</span>
+                        </div>
+                        <button onclick="addToCart('Placa de Drywall ST 12,5mm', 34.50)" class="w-full bg-slate-900 hover:bg-primary text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://placehold.co/600x400/cbd5e1/1e293b?text=Montante+Aço" alt="Montante" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-slate-500 mb-2 uppercase font-semibold tracking-wider">Estruturas</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Montante de Aço 48mm/90mm</h3>
+                        <p class="text-slate-600 mb-4 line-clamp-2">Perfil de aço galvanizado para estruturação de divisórias em drywall. Garante estabilidade e segurança.</p>
+                        <div class="mb-5 flex items-end gap-2">
+                            <span class="text-2xl font-black text-primary">R$ 18,90</span>
+                            <span class="text-sm text-slate-500 font-medium mb-1">/peça</span>
+                        </div>
+                        <button onclick="addToCart('Montante de Aço 48mm/90mm', 18.90)" class="w-full bg-slate-900 hover:bg-primary text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://placehold.co/600x400/94a3b8/ffffff?text=Massa+Drywall" alt="Massa para Drywall" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-slate-500 mb-2 uppercase font-semibold tracking-wider">Acabamento</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Massa Pronta para Drywall 25kg</h3>
+                        <p class="text-slate-600 mb-4 line-clamp-2">Massa especialmente desenvolvida para o tratamento de juntas. Fácil lixamento e excelente aderência.</p>
+                        <div class="mb-5 flex items-end gap-2">
+                            <span class="text-2xl font-black text-primary">R$ 55,00</span>
+                            <span class="text-sm text-slate-500 font-medium mb-1">/balde</span>
+                        </div>
+                        <button onclick="addToCart('Massa Pronta para Drywall 25kg', 55.00)" class="w-full bg-slate-900 hover:bg-primary text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://placehold.co/600x400/cbd5e1/475569?text=Fita+Telada" alt="Fita Telada" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-slate-500 mb-2 uppercase font-semibold tracking-wider">Acessórios</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Fita Telada Fibra de Vidro 90m</h3>
+                        <p class="text-slate-600 mb-4 line-clamp-2">Fita autoadesiva para juntas de drywall. Evita trincas e garante um acabamento perfeito nas emendas.</p>
+                        <div class="mb-5 flex items-end gap-2">
+                            <span class="text-2xl font-black text-primary">R$ 15,00</span>
+                            <span class="text-sm text-slate-500 font-medium mb-1">/rolo</span>
+                        </div>
+                        <button onclick="addToCart('Fita Telada Fibra de Vidro 90m', 15.00)" class="w-full bg-slate-900 hover:bg-primary text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="https://placehold.co/600x400/475569/ffffff?text=Ferramentas" alt="Desempenadeira" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs text-slate-500 mb-2 uppercase font-semibold tracking-wider">Ferramentas</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Desempenadeira de Aço Inox</h3>
+                        <p class="text-slate-600 mb-4 line-clamp-2">Ferramenta essencial para profissionais. Alta durabilidade e precisão na aplicação de massas e gesso.</p>
+                        <div class="mb-5 flex items-end gap-2">
+                            <span class="text-2xl font-black text-primary">R$ 45,90</span>
+                            <span class="text-sm text-slate-500 font-medium mb-1">/unidade</span>
+                        </div>
+                        <button onclick="addToCart('Desempenadeira de Aço Inox', 45.90)" class="w-full bg-slate-900 hover:bg-primary text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-16 text-center">
+                <button onclick="openModal('Catálogo Completo')" class="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold px-8 py-4 rounded-lg transition-colors inline-flex items-center gap-3">
+                    <i class="fa-solid fa-download"></i> Baixar Catálogo Completo (PDF)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <img src="https://placehold.co/800x600/1e40af/ffffff?text=Loja+Gesso+Alves" alt="Fachada da Loja" class="rounded-2xl shadow-xl z-10 relative">
+                        <div class="absolute -bottom-6 -left-6 w-48 h-48 bg-blue-100 rounded-2xl -z-10"></div>
+                        <div class="absolute -top-6 -right-6 w-48 h-48 bg-slate-100 rounded-full -z-10"></div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="text-sm text-primary font-bold tracking-widest uppercase mb-2">Nossa História</div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Tradição e Qualidade em Materiais para Construção</h2>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        A <strong class="text-slate-800">Gesso Alves Comercial</strong> nasceu com a missão de fornecer os melhores materiais para gesseiros, construtoras e consumidores finais. Com anos de experiência no mercado, entendemos exatamente o que sua obra precisa.
+                    </p>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        Trabalhamos com um amplo estoque a pronta entrega, garantindo agilidade e preços competitivos. Seja para um pequeno reparo ou para uma grande edificação estruturada em Drywall, nós somos o seu parceiro ideal.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-blue-100 p-3 rounded-lg text-primary">
+                                <i class="fa-solid fa-truck-fast text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Entrega Rápida</h4>
+                                <p class="text-sm text-slate-500">Frota própria para toda a região.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-blue-100 p-3 rounded-lg text-primary">
+                                <i class="fa-solid fa-medal text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Qualidade Garantida</h4>
+                                <p class="text-sm text-slate-500">Trabalhamos com marcas líderes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 pt-16 pb-8 border-t-4 border-primary mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
+                
+                <!-- Brand Info -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-layer-group text-blue-400 text-3xl"></i>
+                        <span class="font-bold text-2xl tracking-tight text-white">Gesso Alves</span>
+                    </a>
+                    <p class="text-slate-400 mb-6">A sua distribuidora de confiança em materiais de gesso, drywall e ferramentas especializadas.</p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#inicio" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Início</a></li>
+                        <li><a href="#produtos" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Catálogo de Produtos</a></li>
+                        <li><a href="#sobre" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Nossa História</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> Política de Privacidade</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6">Receba Ofertas</h3>
+                    <p class="text-slate-400 mb-4">Cadastre-se para receber promoções exclusivas para gesseiros.</p>
+                    <form onsubmit="event.preventDefault(); showMessage('Cadastrado com sucesso!');" class="flex flex-col gap-3">
+                        <input type="email" placeholder="Seu melhor e-mail" required class="bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full">
+                        <button type="submit" class="bg-primary hover:bg-blue-600 text-white font-medium py-3 rounded-lg transition-colors">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 mt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm">© 2023 Gesso Alves Comercial. Todos os direitos reservados.</p>
+                <p class="text-slate-500 text-sm flex items-center gap-1">Feito com <i class="fa-solid fa-heart text-red-500"></i> para a construção civil.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Modal Background Overlay -->
+    <div id="custom-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden bg-slate-900/60 backdrop-blur-sm px-4">
+        
+        <!-- Modal Content -->
+        <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] flex flex-col">
+            <!-- Header -->
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center shrink-0">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-primary"></i> Resumo do Orçamento
+                </h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors focus:outline-none p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Body -->
+            <div class="p-6 overflow-y-auto no-scrollbar">
+                
+                <!-- Cart Items List -->
+                <div class="mb-6">
+                    <h4 class="font-bold text-slate-700 mb-3 border-b pb-2">Produtos Selecionados</h4>
+                    <div id="cart-items" class="space-y-3 mb-4">
+                        <!-- Items injected via JS -->
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-50 p-4 rounded-lg border border-slate-100">
+                        <span class="font-bold text-slate-700">Total Estimado:</span>
+                        <span id="cart-total" class="text-2xl font-black text-primary">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <!-- Payment Options -->
+                <div class="mb-6">
+                    <h4 class="font-bold text-slate-700 mb-3 border-b pb-2">Opção de Pagamento</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="border border-slate-200 rounded-lg p-3 cursor-pointer hover:bg-blue-50 hover:border-primary transition-all flex flex-col items-center gap-2 relative">
+                            <input type="radio" name="payment" value="pix" checked class="absolute top-3 left-3 text-primary">
+                            <i class="fa-brands fa-pix text-teal-500 text-2xl mt-2"></i> 
+                            <span class="font-medium text-slate-700">Pix</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-lg p-3 cursor-pointer hover:bg-blue-50 hover:border-primary transition-all flex flex-col items-center gap-2 relative">
+                            <input type="radio" name="payment" value="credit" class="absolute top-3 left-3 text-primary">
+                            <i class="fa-solid fa-credit-card text-blue-500 text-2xl mt-2"></i> 
+                            <span class="font-medium text-slate-700">Cartão</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-lg p-3 cursor-pointer hover:bg-blue-50 hover:border-primary transition-all flex flex-col items-center gap-2 relative">
+                            <input type="radio" name="payment" value="boleto" class="absolute top-3 left-3 text-primary">
+                            <i class="fa-solid fa-barcode text-slate-700 text-2xl mt-2"></i> 
+                            <span class="font-medium text-slate-700">Boleto</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Integration Warning -->
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-6 flex items-start gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-1"></i>
+                    <div>
+                        <p class="text-sm text-amber-800 font-medium">Aviso sobre Pagamento</p>
+                        <p class="text-sm text-amber-700 mt-1">
+                            A integração automática com nossa plataforma de pagamentos ainda não foi concluída. Ao enviar o pedido, a forma escolhida será registrada e entraremos em contato para finalizar a cobrança e a entrega.
+                        </p>
+                    </div>
+                </div>
+                
+                <form id="quote-form" onsubmit="submitQuote(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+                            <input type="text" required class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Telefone / WhatsApp</label>
+                            <input type="tel" required class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-lg shadow-md transition-colors mt-4 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar Pedido
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Notification Message -->
+    <div id="notification-msg" class="fixed bottom-5 right-5 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-[110] flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <span id="notification-text" class="font-medium">Ação realizada!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Cart State
+        let cart = [];
+
+        // Modal Logic
+        const modal = document.getElementById('custom-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            showMessage('Produto adicionado ao orçamento!');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            renderCartItems(); // Re-render if modal is open
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cart-count');
+            const mobileCountElem = document.getElementById('mobile-cart-count');
+            
+            if (cart.length > 0) {
+                countElem.textContent = cart.length;
+                countElem.classList.remove('hidden');
+                
+                mobileCountElem.textContent = cart.length;
+                mobileCountElem.classList.remove('hidden');
+            } else {
+                countElem.classList.add('hidden');
+                mobileCountElem.classList.add('hidden');
+            }
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            const totalElem = document.getElementById('cart-total');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 text-center py-4 bg-slate-50 rounded-lg border border-dashed border-slate-300">Nenhum produto adicionado ao orçamento ainda.</p>';
+                totalElem.textContent = 'R$ 0,00';
+                return;
+            }
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
+                        <span class="text-slate-700 text-sm font-medium line-clamp-1 flex-1 pr-4"><i class="fa-solid fa-check text-green-500 mr-2"></i>${item.name}</span>
+                        <div class="flex items-center gap-4 shrink-0">
+                            <span class="font-bold text-slate-800">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
+                            <button type="button" onclick="removeFromCart(${index})" class="text-slate-300 hover:text-red-500 transition-colors p-1" title="Remover">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            totalElem.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        function openQuoteModal() {
+            renderCartItems();
+            modal.classList.remove('hidden');
+            
+            // Small delay to allow display:block to apply before animating opacity/transform
+            setTimeout(() => {
+                modalContent.classList.remove('opacity-0', 'scale-95');
+                modalContent.classList.add('opacity-100', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('opacity-100', 'scale-100');
+            modalContent.classList.add('opacity-0', 'scale-95');
+            
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('quote-form').reset();
+            }, 300);
+        }
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Notification Logic
+        function showMessage(text) {
+            const notif = document.getElementById('notification-msg');
+            const notifText = document.getElementById('notification-text');
+            
+            notifText.textContent = text;
+            notif.classList.remove('translate-y-20', 'opacity-0');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notif.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Form Submit
+        function submitQuote(event) {
+            event.preventDefault();
+            
+            if (cart.length === 0) {
+                showMessage("Adicione pelo menos um produto ao orçamento.");
+                return;
+            }
+
+            closeModal();
+            
+            // Clear cart
+            cart = [];
+            updateCartUI();
+            
+            setTimeout(() => {
+                showMessage("Pedido recebido! Entraremos em contato para finalizar a cobrança.");
+            }, 400);
+        }
+    </script>
+</body>
+</html>
+```
